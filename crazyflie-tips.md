@@ -2,8 +2,8 @@
 
 This is a list of helpful tips for working with the drones for the course. You may want to refer to these at multiple points in the semester when working with the drones. 
 
-1. Take a look at the ["Getting Started"](https://www.bitcraze.io/documentation/tutorials/getting-started-with-crazyflie-2-x/) page for the Crazyflie. In addition to build instructions, this page also contains a lot of helpful information (e.g., switching the drone on/off, the meaning of different LED light patterns, etc.).
-2. Make sure that your drone's propellers are installed with the correct orientations; see the ["Getting Started"](https://www.bitcraze.io/documentation/tutorials/getting-started-with-crazyflie-2-x/) page. 
+1. Take a look at the ["Getting Started"](https://www.bitcraze.io/documentation/tutorials/getting-started-with-crazyflie-brushless/) page for the Crazyflie. In addition to build instructions, this page also contains a lot of helpful information (e.g., switching the drone on/off, the meaning of different LED light patterns, etc.).
+2. Make sure that your drone's propellers are installed with the correct orientations; see the ["Getting Started"](https://www.bitcraze.io/documentation/tutorials/getting-started-with-crazyflie-brushless/) page. 
 3. Make sure that the battery cable isn't interfering with the spinning propellers. 
 4. If you see your drone fly straight up and into the ceiling, you have almost certainly installed the optical flow board upside down (this only applies to teams who built their own drones; drones we provided have been tested and will have the optical flow boards installed correctly). 
 5. Make sure your drone's batteries are not low! The Crazyflie doesn't always perform well when the battery is low. You can check the battery charge status using cfclient (see Lab 2 for instructions).
