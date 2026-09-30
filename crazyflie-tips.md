@@ -1,12 +1,15 @@
-# Tips for working with the Crazyflie drones
+# Guidelines and tips for working with the Crazyflie drones
 
 This is a list of helpful tips for working with the drones for the course. You may want to refer to these at multiple points in the semester when working with the drones. 
 
-1. Take a look at the ["Getting Started"](https://www.bitcraze.io/documentation/tutorials/getting-started-with-crazyflie-brushless/) page for the Crazyflie. This page contains a lot of helpful information, e.g., switching the drone on/off, the meaning of different LED light patterns, how to replace propellers and motors, etc.
-2. Make sure your drone's batteries are not low! The Crazyflie doesn't always perform well when the battery is low. Propellers may not spin properly, the drone may not take off, etc. You can check the battery charge status using cfclient (see Lab 2 for instructions). 
-3. Make sure that your drone's propellers are installed with the correct orientations; see the ["Getting Started"](https://www.bitcraze.io/documentation/tutorials/getting-started-with-crazyflie-brushless/) page. 
-4. Make sure that the battery cable isn't interfering with the spinning propellers. 
-5. If you see your drone fly straight up and into the ceiling, you have almost certainly installed the optical flow board upside down (this only applies to teams who built their own drones; drones we provided have been tested and will have the optical flow boards installed correctly). 
-6. Turn the drone on when it is plugged in to charge it. It will not charge when it is powered off so that the onboard processor can monitor the battery and prevent it from overcharging.
-7. Before switching the drone on, make sure to keep it on a level surface and hold it still. The drone calibrates its sensors when you switch it on; this calibration can get messed up if it is not on a flat surface or the drone is being moved around. 
-8. Occasionally, we have seen different drones interfere with each other. This seems to happen more often when there are a number of drones (e.g., 3-4) trying to fly at the same time in close proximity, or if two drones with similar radio channel numbers (set by your team's group number) are operating in close proximity. If you notice that your drone is behaving very weirdly, try to make sure that there aren't a large number of other teams flying at the same time. 
+1. Return all components to the box after use. Please make sure all items listed on the box are returned to their proper place.
+2. Do NOT leave batteries charging unattended. Always stay nearby while batteries are charging.
+3. Report any drone issues promptly. If a drone has an issue that requires assistance from the teaching staff, please report it on Ed as soon as possible.
+4. Take a look at the ["Getting Started"](https://www.bitcraze.io/documentation/tutorials/getting-started-with-crazyflie-brushless/) page for the Crazyflie. This page contains a lot of helpful information, e.g., switching the drone on/off, the meaning of different LED light patterns, how to replace propellers and motors, etc.
+5. Make sure your drone's batteries are not low! The Crazyflie doesn't always perform well when the battery is low. Propellers may not spin properly, the drone may not take off, etc. You can check the battery charge status using cfclient (see Lab 2 for instructions). 
+6. Make sure that your drone's propellers are installed with the correct orientations; see the ["Getting Started"](https://www.bitcraze.io/documentation/tutorials/getting-started-with-crazyflie-brushless/) page. 
+7. Make sure that the battery cable isn't interfering with the spinning propellers. 
+8. If you see your drone fly straight up and into the ceiling, you have almost certainly installed the optical flow board upside down (this only applies to teams who built their own drones; drones we provided have been tested and will have the optical flow boards installed correctly). 
+9. Turn the drone on when it is plugged in to charge it. It will not charge when it is powered off so that the onboard processor can monitor the battery and prevent it from overcharging.
+10. Before switching the drone on, make sure to keep it on a level surface and hold it still. The drone calibrates its sensors when you switch it on; this calibration can get messed up if it is not on a flat surface or the drone is being moved around. 
+11. Occasionally, we have seen different drones interfere with each other. This seems to happen more often when there are a number of drones (e.g., 3-4) trying to fly at the same time in close proximity, or if two drones with similar radio channel numbers (set by your team's group number) are operating in close proximity. If you notice that your drone is behaving very weirdly, try to make sure that there aren't a large number of other teams flying at the same time. 
