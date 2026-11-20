@@ -1,23 +1,23 @@
 # Final Project: Vision-Based Obstacle Avoidance with Imitation Learning
 
-You'll train a policy that flies the Crazyflie through an obstacle course using only its camera: it takes off from the nominal start position and flies to the goal region (the end box) while avoiding the obstacles. You fly demonstrations with the keyboard, the drone records what the camera sees and what you commanded, and a model learns to map images to commands.
+In the final project, we will train a policy that flies the Crazyflie through an obstacle course using only its camera. The drone will take off from the start position and fly toward the goal region while avoiding obstacles. We will do this with behavior cloning, as discussed in class (Lecture 20).
 
-The steps:
+Main steps:
 
 1. **Camera:** connect the receiver and check the picture (`camera_test.ipynb`).
 2. **Collect demos:** fly the course with the keyboard while recording (`keyboard_control_IL.py`).
 3. **Check each demo:** done automatically when you land (plots + a video of what the camera saw).
-4. **Build your dataset:** the 38 staff demos plus yours, in one folder.
+4. **Build your dataset:** the TAs have already collected 38 demos; you can collect some more.
 5. **Train a model:** your own design, fed by `dataloader.py`.
 6. **Fly it:** run your model in a control loop. **The camera image must be processed exactly as in training.**
 7. **Present on demo day:** 4-5 slides on your technical approach.
 
-Everything lives in the final project folder of the course repo, `F2026/FinalProject/`. Run every command below from there (`cd F2026/FinalProject` first).
+Everything is in the final project folder of the course repo, `F2026/FinalProject/`. Run every command below from there (`cd F2026/FinalProject` first).
 
 | File | What it is |
 | --- | --- |
 | `camera_test.ipynb` | Connect the receiver, live view, crop check (plus optional record/flight tests) |
-| `keyboard_control_IL.py` | Fly with the keyboard and record synchronized (image, state, action) at 20 Hz. Its control loop is also a worked example of reading the camera while flying |
+| `keyboard_control_IL.py` | Fly with the keyboard and record synchronized (image, state, action) at 20 Hz. Its control loop provides an example of reading the camera while flying |
 | `analyze_il_data.py` | Checks a demo and makes plots + a video of the camera images. Runs automatically after each demo |
 | `dataloader.py` | PyTorch `Dataset`/`DataLoader` over a folder of demos, plus `preprocess_frame` for flight time |
 | `il_dataset.zip` | 38 demos recorded by the course staff (1.2 GB). Not in the repo: [download from Google Drive](https://drive.google.com/file/d/1hgEG0j39_dQzKIepr9XRy3im8qH9uI3t/view?usp=drive_link) |
@@ -95,7 +95,7 @@ Keys go to the script even when the terminal isn't focused, so don't type into o
 
 ### Tips for good demos
 
-The model can only be as consistent as your demos. What went wrong in the staff data:
+The model can only be as consistent as your demos. These are some things that the TAs learned from collecting data:
 
 - **Pick one way of avoiding obstacles and stick to it.** Holding `w`+`a` / `w`+`d` to curve around an obstacle while still moving forward works well. If you sometimes curve and sometimes stop and slide sideways, the same image gets two different labels.
 - **Stay at the takeoff height and keep facing forward.** Climbing (`space`/`c`), turning (`q`/`e`) and backing up (`s`) produce camera views and commands your policy will rarely see. Avoid them unless you plan to use them on purpose.
@@ -103,7 +103,7 @@ The model can only be as consistent as your demos. What went wrong in the staff 
 - **Start from the nominal start position every time, and finish in the goal region.** The poles can and should move between demos (the policy has to handle new layouts), but the start and the goal region don't.
 - **Discard bad runs with `n`.** A crash or a wrong turn is better thrown away than trained on.
 
-### The crop
+### Cropping
 
 The receiver draws an overlay along the top of the image: signal strength, frequency, signal strength (e.g. `92%  5789MHz  94%`). The script cuts off the top 80 rows of each frame (`--crop`, default 80) so the overlay doesn't end up in your data. The receiver doesn't always show the overlay, but when it does, the text can reach down to about row 105. If you see text in notebook Part 3 or in a demo's `image_samples.png`, record with `--crop 110`. Either is fine: the data loader lines up demos recorded at different crops (step 4).
 
@@ -185,7 +185,7 @@ What the loader does for you:
 - **Augmentation (training only):** small shifts and color jitter. It also mirrors images left-right and **mirrors the labels with them** (left becomes right). Flipping only the image would teach the wrong direction.
 - **Validation:** uses the training set's normalization and action set.
 
-**Discrete actions:** the keyboard only produces a handful of distinct commands (forward, forward-left, slide right, ...), listed in `train_loader.dataset.action_set`. You can treat the problem as classification over those (`action_class`), or as regression on `action`. Which works better is a design choice worth exploring. Validation accuracy is only a guide; what counts is how far the drone gets through the course.
+**Discrete actions:** the keyboard only produces a handful of distinct commands (forward, forward-left, slide right, ...), listed in `train_loader.dataset.action_set`. You can treat the problem as classification over those (`action_class`), or as regression on `action`. Which works better is a design choice worth exploring. 
 
 **When you save your model, save the data settings with it:**
 
@@ -197,7 +197,7 @@ torch.save({'model': model.state_dict(),
 
 ## 6. Fly your policy: inference must match training
 
-At flight time your model has to receive exactly the kind of input it was trained on: same crop, same color order (RGB), same resize, same normalization. `preprocess_frame` does all of that from the raw 640x480 camera frame, using the settings you saved:
+At flight time, your model has to receive exactly the kind of input it was trained on: same crop, same color order (RGB), same resize, same normalization. `preprocess_frame` does all of that from the raw 640x480 camera frame, using the settings you saved:
 
 ```python
 import torch
@@ -224,11 +224,17 @@ mc.start_linear_motion(vx, vy, vz, yaw_rate)
 - **Landing:** your demos stop recording when you press `l`, so a policy trained on them never sees a landing and can't learn when to land. Decide that in your flight script. One option: land once the drone's position estimate (`stateEstimate.x`, logged as in `keyboard_control_IL.py`) shows it has flown as far forward as your demos did.
 - **Safety:** always keep a way to land at once (e.g. Ctrl-C → `mc.land()`) and a time limit on the loop.
 
-## 7. Demo day: 3–4 slides
+## Demo day
 
-Along with flying your policy on demo day, present **3–4 slides** on how you arrived at your final model and why. For example:
+See slides 29-30 of Lecture 20 for details on how your flights will be scored. As mentioned there, you will have two flights under nominal conditions, 1 flight under a lighting change, and 1 flight with different colored obstacles.
 
-- **Model:** the architecture, what it takes in (image only, image + state, ...) and what it outputs (an action class, a velocity), and why you chose it.
-- **Data:** how many demos you collected, how you flew them, and anything you filtered, cleaned or weighted.
-- **Training:** loss, augmentation, how long you trained, and how you picked the final checkpoint.
+## 8. Demo day: 4–5 slides
+
+Along with flying your policy on demo day, present **4–5 slides** on your technical approach. For example:
+
+- **Model:** neural network architecture, inference latency, etc.
+- **Data:** how many additional demos you collected, how you flew them, and anything you filtered, cleaned, or weighted.
+- **Training:** loss, data augmentation, how long you trained, and how you picked the final checkpoint.
 - **What you tried:** the alternatives you compared, what didn't work, and how the final model does in flight.
+
+We hope you enjoy the project! 
