@@ -10,7 +10,7 @@ The steps:
 4. **Build your dataset:** the 38 staff demos plus yours, in one folder.
 5. **Train a model:** your own design, fed by `dataloader.py`.
 6. **Fly it:** run your model in a control loop. **The camera image must be processed exactly as in training.**
-7. **Present on demo day:** 3–4 slides on the model you chose and how you trained it.
+7. **Present on demo day:** 4-5 slides on the model you chose and how you trained it.
 
 Everything lives in the final project folder of the course repo, `F2026/final_project/`. Run every command below from there (`cd F2026/final_project` first).
 
