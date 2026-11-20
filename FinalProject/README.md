@@ -224,7 +224,7 @@ mc.start_linear_motion(vx, vy, vz, yaw_rate)
 - **Landing:** your demos stop recording when you press `l`, so a policy trained on them never sees a landing and can't learn when to land. Decide that in your flight script. One option: land once the drone's position estimate (`stateEstimate.x`, logged as in `keyboard_control_IL.py`) shows it has flown as far forward as your demos did.
 - **Safety:** always keep a way to land at once (e.g. Ctrl-C → `mc.land()`) and a time limit on the loop.
 
-## 7. Demo day
+## 7. Demo day: flights
 
 See slides 29-30 of Lecture 20 for details on how your flights will be scored. As mentioned there, you will have two flights under nominal conditions, 1 flight under a lighting change, and 1 flight with different colored obstacles.
 
