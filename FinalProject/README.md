@@ -12,7 +12,7 @@ The steps:
 6. **Fly it:** run your model in a control loop. **The camera image must be processed exactly as in training.**
 7. **Present on demo day:** 4-5 slides on your technical approach.
 
-Everything lives in the final project folder of the course repo, `F2026/final_project/`. Run every command below from there (`cd F2026/final_project` first).
+Everything lives in the final project folder of the course repo, `F2026/FinalProject/`. Run every command below from there (`cd F2026/FinalProject` first).
 
 | File | What it is |
 | --- | --- |
@@ -75,7 +75,7 @@ python keyboard_control_IL.py --group <your drone's radio channel> --camera <ind
 - **Trial number:** you're asked for one (number them 1, 2, 3, …). Existing trials are listed, and you're asked before one is overwritten.
 - **Setup wait:** wait for "Connected!" and "Estimator converged", with the drone flat and still.
 - **Recording:** press `u`. The drone takes off, hovers 3 s, and **recording starts automatically**. Fly the course, then press `l` to save and land.
-- **Where it goes:** demos are saved to `F2026/final_project/imitation_data/trial_XX/`. Use `--out <folder>` to save somewhere else.
+- **Where it goes:** demos are saved to `F2026/FinalProject/imitation_data/trial_XX/`. Use `--out <folder>` to save somewhere else.
 
 **Keys** (velocity 0.2 m/s, yaw rate 45°/s):
 
@@ -134,14 +134,14 @@ trial_XX/
 - **state:** `x, y, z, vx, vy, vz, roll, pitch, yaw`, from the Flow deck and the drone's estimator.
 - **action:** the command you were sending, `[vx, vy, vz, yaw_rate]` in m/s and deg/s.
 
-1. **Download the staff demos:** [`il_dataset.zip`](https://drive.google.com/file/d/1hgEG0j39_dQzKIepr9XRy3im8qH9uI3t/view?usp=drive_link) (1.2 GB, Google Drive, Princeton login), then move it into `F2026/final_project/` and unzip it there:
+1. **Download the staff demos:** [`il_dataset.zip`](https://drive.google.com/file/d/1hgEG0j39_dQzKIepr9XRy3im8qH9uI3t/view?usp=drive_link) (1.2 GB, Google Drive, Princeton login), then move it into `F2026/FinalProject/` and unzip it there:
 
    ```
    mv ~/Downloads/il_dataset.zip .
    unzip il_dataset.zip
    ```
 
-   This gives `F2026/final_project/il_dataset/trial_01` … `trial_38`. If your browser already unzipped it (Safari does), move the `il_dataset` folder from `~/Downloads` instead. The staff demos are recorded at crop 110 and come from several pilots, steering styles and pole layouts. Watch a few of their videos: `python analyze_il_data.py il_dataset/trial_01`, then open `il_dataset/trial_01/trajectory.mp4`.
+   This gives `F2026/FinalProject/il_dataset/trial_01` … `trial_38`. If your browser already unzipped it (Safari does), move the `il_dataset` folder from `~/Downloads` instead. The staff demos are recorded at crop 110 and come from several pilots, steering styles and pole layouts. Watch a few of their videos: `python analyze_il_data.py il_dataset/trial_01`, then open `il_dataset/trial_01/trajectory.mp4`.
 2. **Copy your demos in** after the staff ones: your `trial_01` becomes `trial_39`, your `trial_02` becomes `trial_40`, and so on. The data loader reads one folder. This copies every demo in `imitation_data/` (your originals stay where they are):
 
    ```
@@ -151,7 +151,7 @@ trial_XX/
    When you're done, the folder looks like this:
 
    ```
-   F2026/final_project/
+   F2026/FinalProject/
      dataloader.py, keyboard_control_IL.py, ...
      imitation_data/   trial_01, trial_02, ...         your demos, as recorded
      il_dataset/       trial_01 ... trial_38 (staff)   what you train on
